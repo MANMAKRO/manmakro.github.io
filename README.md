@@ -1,2 +1,3 @@
-The .sb3 file is to be opened with scratch
-The html file can be opened with any browser and was created with packager.turbowarp.org/
+This is the Github Pages page for MANMAKRO !
+The owner of the Account MANMAKRO is Christos Makrypodis
+His official website is https://256Bits.tech
