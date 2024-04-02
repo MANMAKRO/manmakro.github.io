@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snake Game</title>
+  <style>
+    #game-board {
+      width: 400px;
+      height: 400px;
+      border: 1px solid #000;
+      position: relative;
+    }
+
+    .cell {
+      width: 20px;
+      height: 20px;
+      background-color: #ccc;
+      position: absolute;
+    }
+
+    .snake-head {
+      background-color: #000;
+    }
+
+    .food {
+      background-color: #f00;
+    }
+
+    .game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Snake Game</h1>
+  <div id="game-board"></div>
+  <div id="game-over" class="game-over"></div>
+  <button id="restart-button" style="display: none;">Restart</button>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gameBoard = document.getElementById('game-board');
+      const gameOverElement = document.getElementById('game-over');
+      const restartButton = document.getElementById('restart-button');
+      const cellSize = 20;
+      const boardSize = 400;
+      const initialSnake = [
+        { x: 10, y: 10 },
+        { x: 10, y: 11 },
+        { x: 10, y: 12 }
+      ];
+      let snake = [...initialSnake];
+      let direction = 'right';
+      let food = getRandomFoodPosition();
+      let isGameOver = false;
+
+      function draw() {
+        gameBoard.innerHTML = '';
+        snake.forEach((segment, index) => {
+          const cell = createCell(segment.x, segment.y);
+          if (index === 0) {
+            cell.classList.add('snake-head');
+          } else {
+            cell.classList.add('snake');
+          }
+          gameBoard.appendChild(cell);
+        });
+
+        const foodCell = createCell(food.x, food.y);
+        foodCell.classList.add('food');
+        gameBoard.appendChild(foodCell);
+      }
+
+      function update() {
+        const head = { ...snake[0] };
+
+        switch (direction) {
+          case 'up':
+            head.y -= 1;
+            break;
+          case 'down':
+            head.y += 1;
+            break;
+          case 'left':
+            head.x -= 1;
+            break;
+          case 'right':
+            head.x += 1;
+            break;
+        }
+
+        snake.unshift(head);
+
+        if (head.x === food.x && head.y === food.y) {
+          food = getRandomFoodPosition();
+        } else {
+          snake.pop();
+        }
+
+        checkCollision();
+      }
+
+      function checkCollision() {
+        const head = snake[0];
+
+        // Check wall collision
+        if (
+          head.x < 0 ||
+          head.y < 0 ||
+          head.x >= boardSize / cellSize ||
+          head.y >= boardSize / cellSize
+        ) {
+          isGameOver = true;
+        }
+
+        // Check self collision
+        for (let i = 1; i < snake.length; i++) {
+          if (snake[i].x === head.x && snake[i].y === head.y) {
+            isGameOver = true;
+            break;
+          }
+        }
+
+        if (isGameOver) {
+          gameOver();
+        }
+      }
+
+      function gameOver() {
+        clearInterval(gameLoop);
+        gameBoard.style.opacity = 0.5;
+        gameOverElement.style.display = 'block';
+        restartButton.style.display = 'block';
+      }
+
+      function restartGame() {
+        isGameOver = false;
+        snake = [...initialSnake];
+        direction = 'right';
+        food = getRandomFoodPosition();
+        gameBoard.style.opacity = 1;
+        gameOverElement.style.display = 'none';
+        restartButton.style.display = 'none';
+        gameLoop = setInterval(() => {
+          update();
+          draw();
+        }, 150);
+      }
+
+      function getRandomFoodPosition() {
+        return {
+          x: Math.floor(Math.random() * (boardSize / cellSize)),
+          y: Math.floor(Math.random() * (boardSize / cellSize))
+        };
+      }
+
+      function createCell(x, y) {
+        const cell = document.createElement('div');
+        cell.style.left = `${x * cellSize}px`;
+        cell.style.top = `${y * cellSize}px`;
+        cell.classList.add('cell');
+        return cell;
+      }
+
+      function handleKeydown(event) {
+        if (isGameOver) return;
+
+        switch (event.key) {
+          case 'ArrowUp':
+            if (direction !== 'down') direction = 'up';
+            break;
+          case 'ArrowDown':
+            if (direction !== 'up') direction = 'down';
+            break;
+          case 'ArrowLeft':
+            if (direction !== 'right') direction = 'left';
+            break;
+          case 'ArrowRight':
+            if (direction !== 'left') direction = 'right';
+            break;
+        }
+      }
+
+      let gameLoop = setInterval(() => {
+        if (!isGameOver) {
+          update();
+          draw();
+        }
+      }, 150);
+
+      document.addEventListener('keydown', handleKeydown);
+      restartButton.addEventListener('click', restartGame);
+    });
+  </script>
+</body>
+</html>
