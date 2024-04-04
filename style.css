@@ -1,0 +1,156 @@
+/* Reset some default browser styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a font */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Set the background image for the entire webpage */
+body {
+    background-image: url('background.jpg'); /* Replace 'background.jpg' with the path to your image */
+    background-size: cover; /* Cover the entire viewport */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Keep the background fixed while scrolling */
+}
+
+
+/* Style the header */
+header {
+    background-color: #333;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Style the title text */
+header h1 {
+    color: #fff; /* Set the title text color to white */
+}
+
+/* Style the navigation menu */
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #444;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+/* Style the main content area */
+main {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style headings */
+h1, h2 {
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Style the content layout */
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Style the slideshow container */
+.slideshow-container {
+    width: 48%;
+    box-sizing: border-box;
+}
+
+/* Style individual slides */
+.mySlides {
+    display: none;
+    width: 100%;
+}
+
+/* Style individual slides */
+.mySlides2 {
+    display: none;
+    width: 100%;
+}
+
+
+/* Style individual slides */
+.mySlides3 {
+    display: none;
+    width: 100%;
+}
+
+.mySlides img {
+    width: 100%;
+    height: auto;
+}
+
+/* Style the text container */
+.text-container {
+    width: 48%;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 1.8em;
+    font-weight: bold; /* Set the text to bold */
+}
+
+/* Style the text container2 */
+.text-containertwo {
+    width: 48%;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-weight: bold; /* Set the text to bold */
+}
+
+/* Style paragraphs */
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Style links within the content */
+a {
+    color: #0077b6;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #005b8b;
+}
+
+/* Define a class to style the cropped images */
+.cropped-image {
+    max-width: 100px; /* Set the maximum width */
+    max-height: 100px; /* Set the maximum height */
+    width: auto; /* Allow the width to adjust proportionally */
+    height: auto; /* Allow the height to adjust proportionally */
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Style the image container to maintain the aspect ratio */
+.image-container {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    max-width: 1500px; /* Set the maximum container width */
+    max-height: 2000px; /* Set the maximum container height */
+}
